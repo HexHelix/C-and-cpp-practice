@@ -1,0 +1,99 @@
+Linked list 
+
+
+/* AKLANTA NIRAZ BHUYAN
+   RA2011028010004
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+//NODE STRUCTURE
+struct node{
+    int data;
+    struct node* next;
+
+}*head=NULL; //DECLARING HEAD POINTER AND ASSIGNING A NULL VALUE TO IT
+
+
+//FUNCTION TO ADD NODES TO THE LINKED LIST
+void push(struct node** head,int x){
+    
+    
+    //CREATE A TEMP POINTER POINTING TO A NODE
+    struct node* temp = (struct node*)malloc(sizeof(struct node)),*temp1 = *head;
+    temp -> data = x; //ASSIGNING VALUE TO NODE 
+    temp -> next = NULL;  //SETTING NEXT POINTER AS NULL
+
+
+    //CONDITION FOR EMPTY LINKED LIST
+    if ((*head) == NULL ){
+        *head = temp;
+    }
+    
+    //CONDITION FOR IF LINKEDLIST ID NOT EMPTY
+    else {
+
+        //TRAVERSE TO THE LAST NODE
+        while(temp1->next != NULL)temp1=temp1->next;
+        temp1-> next = temp; //POINTING NEXT POINTER TO THE NEW NODE
+    }
+
+
+}
+
+//FUNCTION TO PRINT LINKED LIST IN REVERSE
+void printrev(struct node* head){
+        
+        if(head == NULL)return;//BASE CASE FOR RECURSION
+
+
+        //RECURSIVE CALL, PASSING THE POINTER FOR THE NEXT NODE
+        printrev(head->next);
+        
+        //PRINTING THE VALUE OF THE NODE
+        printf("-->%d",(head)->data);
+
+
+}
+
+//FUNCTION TO PRINT THE LINKED LIST
+void print(struct node* head,int n,int size){
+
+    int i=size-n;
+    
+    //CHECKING IF LIST IS EMPTY
+    if(head == NULL)printf("Error List is empty");
+    
+    
+    else {
+        while(i--){
+            head = (head)->next; //TRAVERSING TO (N-K)TH POSITION
+        }
+        printf("LIST: ");
+        printrev(head); 
+    }
+}
+
+
+
+int main()
+{
+     
+    int size,k,i,data;
+    printf("Enter the size of the linked list: ");
+    scanf("%d",&size); //TAKING THE SIZE OF THE LIST 
+    printf("Enter the Linked list: \n");
+    for(i=0;i<size;i++){
+        scanf("%d",&data);//TAKING THE DATA AS INPUT
+        push(&head,data);//CALLING PUSH FUNC TO ADD A NEW NODE TO THE LIST
+    }
+
+    printf("Enter K: ");
+    scanf("%d",&k); //TAKING K AS INPUT
+
+    print(head,k,size);//CALLING PRINT FUNC TO PRINT THE LAST K NODES IN REVERSE
+
+    return 0;
+}
+

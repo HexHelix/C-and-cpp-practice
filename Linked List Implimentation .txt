@@ -1,0 +1,92 @@
+Linked List Implimentation 
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int num;
+    struct node* next;
+};
+
+
+struct node* head = 0;
+
+int checkSize(){
+    struct node* temp = head;
+    int i =0;
+    while(temp !=0){
+        temp = temp->next;
+        ++i;
+    }
+    return i;
+
+}
+
+void insert (int x){
+
+    struct node* temp = 0;
+    temp = head;
+    if(head == 0){
+        temp = (struct node*)malloc(sizeof(struct node));
+        temp->num = x;
+        temp->next = 0;
+        head = temp;
+    }
+    else {
+        while(temp->next != 0){
+            temp = temp->next;
+        }
+        struct node* temp1 = (struct node*)malloc(sizeof(struct node));
+        temp1->num = x;
+        temp1->next = 0;
+        temp->next = temp1;
+    }
+
+}
+
+void print(){
+    struct node* temp = head;
+    int i = 1;
+    while(temp !=0 ){
+        printf("List %d : %d\n",i,temp->num);
+        temp = temp->next;
+        i++;
+
+    }
+    int size = checkSize();
+    printf("Size of list is: %d",size);
+}
+void insertNode(){
+    int size,n;
+    size = checkSize();
+    printf("Enter the position at which you want to insert the node: ");
+    scanf("%d",&n);
+    struct node* temp = head;
+    if(n > size || n <=0){
+        printf("Entered position is not valid");
+
+    }
+    else 
+
+
+};
+
+
+
+int main()
+{
+    int i,n;
+    printf("Enter The size of linked list:");
+    scanf("%d",&n);
+
+    for(i=0;i<n;i++){
+        int x;
+        scanf("%d",&x);
+        insert(x);
+    }
+    print();
+    insertNode();
+
+}

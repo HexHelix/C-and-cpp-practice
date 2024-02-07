@@ -1,0 +1,115 @@
+Given a singly linked list consisting of N nodes. The task is to remove duplicates (nodes with
+duplicate values) from the given list (if exists). Note: Try not to use extra space. Expected time complexity is O(N). The nodes are arranged in a sorted
+way. Example 1:
+
+Input:
+LinkedList: 2->2->4->5
+Output: 2 4 5
+Explanation: In the given linked list 2 ->2 -> 4-> 5, only 2 occurs more than 1 time. Example 2:
+Input:
+LinkedList: 2->2->2->2->2
+Output: 2
+Explanation: In the given linked list
+2 ->2 ->2 ->2 ->2, 2 is the only element
+and is repeated 5 times. Your Task:
+The task is to complete the function removeDuplicates() which should remove the duplicates from
+
+
+/* Aklanta Niraz Bhuyan
+   RA2011028010004
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+//NODE STRUCTURE
+struct node{
+    int data;
+    struct node* next;
+
+}*head=NULL;//CREATING HEAD POINTER AND ASSIGNING NULL TO IT
+
+//FUNCTION TO ADD NEW NODES TO THE LINKED LIST
+void push(struct node** head,int x){
+
+    struct node* temp = (struct node*)malloc(sizeof(struct node)),*temp1 = *head;
+    temp -> data = x;
+    temp -> next = NULL;
+
+    if ((*head) == NULL ){
+        *head = temp;
+    }
+    else {
+
+        while(temp1->next != NULL)temp1=temp1->next;
+        temp1-> next = temp;
+    }
+
+}
+
+//FUNC TO REMOVE DUPLICATE NODES AND RETURN THE HEAD OF THE LIST
+struct node* removeDuplicates (struct node* head,int size){
+
+    struct node* p1 = head,*p2 = head->next;
+    if(p1->next == NULL)return head; //RETURN HEAD POINTER IF LIST CONTAIN ONLY ONE NODE
+    else{
+            int i;
+            for(i=0;i<size-1;i++){
+                if((p1->data) == (p2->data)){ //COMPARING TWO VALUE OF NODES
+                    struct node* temp = p2; // ASSIGNING A TEMP POINTER TO THE DUPLICATE NODE
+                    p1->next = p2->next; //REMOVING THE DUPLICATE NODE
+                    p2 = p2->next; //MOVING THE P2 POINTER BY ONE NODE
+                    free(temp); //RELEASING THE MEMORY ASSIGNED TO DUPLICATE NODE
+
+                }
+
+                //IF TWO NODES ARE NOT SAME
+                else{
+                    //MAKING P1 POINTER EQUAL TO P2 POINTER
+                    p1 = p2; 
+                    p2 = p2->next;//INCREMENTING P2 POINTER BY ONE NODE
+                }
+            }
+
+    }
+    return head;//RETURNING THE HEAD POINTER
+}
+
+//FUNC TO PRINT THE LINKED LIST
+void print(struct node* head,int size){
+
+    struct node* p = removeDuplicates(head,size);//CALLING FUNCTION TO REMOVE DUPLICATES AND RETURNS HEAD POINTER
+    printf("List without duplicates:");
+    
+    //PRINTING THE LIST
+    while(p != NULL){
+        printf("->%d",p->data);
+        p=p->next;
+    }
+
+
+}
+
+
+int main()
+{
+    int data,size,i;
+    printf("Enter the size of Linked List: ");
+    scanf("%d",&size);
+    printf("Enter the values: \n");
+    
+    //CREATING THE LIST
+    for(i=0;i<size;i++){
+        scanf("%d",&data);
+        push(&head,data);
+    }
+
+    //REMOVING DUPLICATES AND PRINTING THE LIST
+    print(head,size);
+
+    return 0;
+}
+
+
+
+

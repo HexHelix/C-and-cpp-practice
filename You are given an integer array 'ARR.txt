@@ -1,0 +1,56 @@
+You are given an integer array 'ARR' of size 'N' and an integer 'S'. Your task is to return the list of all pairs of elements such that each sum of elements of each pair equals 'S'.
+
+Note:
+
+Each pair should be sorted i.e the first value should be less than or equals to the second value. 
+
+Return the list of pairs sorted in non-decreasing order of their first value. In case if two pairs have the same first value, the pair with a smaller second value should come first.
+
+
+
+#include <bits/stdc++.h> 
+#include <bits/stdc++.h> 
+int factorial(const int n)
+{
+    int f = 1;
+    for (int i=1; i<=n; ++i)
+        f *= i;
+    return f;
+}
+vector<vector<int>> pairSum(vector<int> &arr, int s){
+   // Write your code here.
+    vector<vector<int>> ans;
+    sort(arr.begin(),arr.end());
+    int i = 0, j = arr.size()-1,k=0;
+    while(i<j){
+        if((arr[i]+arr[j])<s)i++;
+        else if((arr[i]+arr[j])>s)j--;
+        else if((arr[i]+arr[j])==s){
+            vector<int> ans1;
+            ans1.push_back(arr[i]);
+            ans1.push_back(arr[j]);
+            int iCnt=1,jCnt=1;
+            while((arr[i]==arr[i+1])&& (i<j)){
+                iCnt++;
+                i++;
+            }
+            
+            while((arr[j]==arr[j-1]) && (i<j)){
+                jCnt++;
+                j--;
+            }
+            if(arr[i]==arr[j]){
+                iCnt--;
+                int temp = iCnt*(iCnt+1)/2;
+                while(temp--)ans.push_back(ans1);
+            }
+            else{int t = iCnt*jCnt;
+            while(t--)ans.push_back(ans1);}
+            
+            i++,j--;
+            
+            
+        }
+    }
+    return ans;
+}

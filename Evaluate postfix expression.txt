@@ -1,0 +1,90 @@
+Evaluate postfix expression
+
+/*   Aklanta Niraz Bhuyan
+     RA2011028010004
+*/
+
+
+#include<stdio.h>
+#include<stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+//declare node struct
+struct node{
+    int data;
+    struct node* next;
+}*head=NULL;
+
+//push function for stack
+void push(int data){
+
+    struct node* temp = (struct node*)malloc(sizeof(struct node));
+    temp->data = data;
+    temp->next = NULL;
+
+    if(head==NULL){
+        head = temp;
+    }
+    else {
+        temp->next = head;
+        head = temp;
+    }
+}
+
+//pop function for stack
+int pop(){
+
+    if(head==NULL)return;
+    struct node* p = head;
+    int data = p->data;
+    head = head->next;
+    free(p);
+    return data;
+}
+
+//function to evaluate postfix expression
+int evaluatePostfixExpression(char exp[]){
+
+    int i;
+    for(i=0;i<strlen(exp);i++){
+
+        //if the element is a digit push it to stack
+        if(isdigit(exp[i])){
+            char c = exp[i];
+            push(atoi(&c));
+        }
+
+        else {
+            //else pop two numbers from stack and evaluate it
+            int x = pop();
+            int y = pop();
+
+            switch (exp[i])
+            {
+            case '+': push(x+y);
+            break;
+            case '-': push(y-x);
+            break;
+            case '*': push(y*x);
+            break;
+            case '/': push(y/x);
+            break;
+            }
+        }
+    }
+
+    //returrning the evaluated answer
+    return pop();
+
+}
+
+
+int main(){
+
+    //calling function to evaluate the postfix expression
+    char exp[] = "34+9-65-/2*";
+    printf("%s = %d",exp,evaluatePostfixExpression(exp));
+    return 0;
+
+}

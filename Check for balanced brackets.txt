@@ -1,0 +1,63 @@
+Check for balanced brackets
+
+
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct stack{
+
+    char c;
+    struct stack* next;
+}*head=NULL;
+
+
+
+void push(char data){
+
+    struct stack* temp = (struct stack*)malloc(sizeof(struct stack));
+    temp->c = data;
+    temp->next = NULL;
+
+    if(head == NULL){
+
+        head = temp;
+
+    }
+
+    if ((head->c == '(' && temp->c == ')'
+    )||(head->c == '[' && temp->c == ']')||(head->c == '{' && temp->c == '}')){
+        head=head->next;
+    }
+    else{
+
+        temp->next = head;
+        head = temp;
+
+    }
+
+}
+
+
+int main(){
+    int n;
+    char string[100];
+    scanf("%d",&n);
+    scanf("%s",string);
+    for(int i=0;i<n;i++){
+        push(string[i]);
+        printf(" -- %c --\n",head->c);
+    }
+
+    printf(" -- %c --\n",head->c);
+
+    printf("%p\n",head);
+
+    
+
+    if(head == NULL)printf("Brackets are balanced!");
+    else printf("Brackets are not balanced");
+
+
+    return 0;
+}

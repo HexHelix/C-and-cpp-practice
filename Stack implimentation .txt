@@ -1,0 +1,80 @@
+Stack implimentation 
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int num;
+    struct node* next;
+
+};
+struct node* top = NULL;
+
+void push(int x){
+    if(top == NULL){
+        struct node* temp = (struct node*)malloc(sizeof(struct node));
+        temp->num = x;
+        temp->next = NULL;
+        top = temp;
+
+    }
+    else{
+
+        struct node* temp = (struct node*)malloc(sizeof(struct node));
+        temp->num = x;
+        temp->next = top;
+        top = temp;
+        }
+}
+
+int pop(){
+
+
+    if(top != NULL)
+        {
+            printf("not null\n");
+
+    struct node* temp = top;
+    top = top->next;
+    free(temp);
+
+    }
+    else {printf("Stack is empty!");};
+
+
+}
+
+int IsEmpty(){
+
+    if(top == NULL)return 1;
+    else return 0;
+}
+
+int topVal(){
+    return top->num;
+}
+
+
+
+int main()
+{
+    printf("%d\n",IsEmpty());
+    push(10);
+    printf("is empty: %d , value pushed: %d, %p\n",IsEmpty(),topVal()),top->next;
+    push(11);
+    printf("is empty: %d , value pushed: %d\n",IsEmpty(),topVal());
+    push(12);
+    printf("is empty: %d , value pushed: %d\n",IsEmpty(),topVal());
+    pop();
+    printf("is empty: %d , value popped: %d, %p\n",IsEmpty(),topVal(),top);
+    pop();
+    printf("is empty: %d , value popped: %d, %p\n",IsEmpty(),topVal(),top);
+    pop();
+    printf("is empty: %d , value popped: %d, %p\n",IsEmpty(),topVal(),top);
+    pop();
+    printf("is empty: %d , value popped: %d, %p\n",IsEmpty(),topVal(),top);
+
+
+
+    return 0;
+}
